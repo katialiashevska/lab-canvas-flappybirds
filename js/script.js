@@ -1,10 +1,14 @@
 window.onload = function() {
+    document.body.style.backgroundImage = "url('images/bg.png')";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "top";
     document.getElementById("start-button").onclick = function() {
     document.getElementById("title").style.display = 'none';
     document.getElementById("game-board").style.display = 'block';
     startGame();
   };
   function startGame() {
+    document.body.style.background = "";
     myGameArea.start();
     background = new Background('images/bg.png');
     player = new Component(64, 40, "images/flappy.png", 100, 110);
@@ -29,7 +33,7 @@ window.onload = function() {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     score: function() {
-      points = (Math.floor(this.frames / 5));
+      points = Math.floor(this.frames / 120);
       this.context.font = '38px serif';
       this.context.fillStyle = 'white';
       this.context.fillText(points, 20, 50);
@@ -44,16 +48,19 @@ window.onload = function() {
       this.restartGame();
     },
     drawFinalPoints: function() {
-      this.context.fillStyle = "black";
+      this.context.fillStyle = "white";
       this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
       this.context.font = '38px serif';
-      this.context.fillStyle = 'red';
+      this.context.fillStyle = 'black';
       this.context.fillText('Game Over!', 20, 240);
-      this.context.fillStyle = 'white';
       this.context.fillText('Final score: ' + points, 20, 290);
+      this.frames = 0;
     },
     restartGame: function(){
       setTimeout(function () {
+        document.body.style.backgroundImage = "url('images/bg.png')";
+        document.body.style.backgroundRepeat = "no-repeat";
+        document.body.style.backgroundPosition = "top";
         document.getElementById("game-board").style.display = 'none';
         document.getElementById("title").style.display = 'block';
       }, 1500);
